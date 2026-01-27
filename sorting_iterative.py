@@ -18,7 +18,6 @@ def bubble_sort(items):
     Memory usage: ??? Why and under what conditions
         O(1): sorts in-place since we're not growing the array size
     """
-        
     # Original Array: [10, 7, 1, 3, 6]
     # [7, 10, 1, 3, 6] --> first 0, 1
     # [7, 1, 10, 3, 6] --> index 1, 2
@@ -43,9 +42,21 @@ def selection_sort(items):
     unsorted item, and repeating until all items are in sorted order.
     TODO: Running time: ??? Why and under what conditions?
     TODO: Memory usage: ??? Why and under what conditions?"""
-    # TODO: Repeat until all items are in sorted order
-    # TODO: Find minimum item in unsorted items
-    # TODO: Swap it with first unsorted item
+    # Example array: [9, 4, 5, 7, 1]
+    # Repeat the process, each time starting one position further to the right
+    # pass = len(items) - 1, since we have 5 elements, we need to do 4 pass
+    for index in range(len(items) - 1):
+        
+        # Assume that the first element in the list is the smallest element so far   
+        smallest_index = index
+        
+        # Compare with rest of unsorted section
+        for i in range(index + 1, len(items)):
+            if items[i] < items[smallest_index]:
+                smallest_index = i
+                
+        # Swap elements
+        items[index], items[smallest_index] = items[smallest_index], items[index]
 
 
 def insertion_sort(items):
