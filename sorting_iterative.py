@@ -78,11 +78,45 @@ def selection_sort(items):
 def insertion_sort(items):
     """Sort given items by taking first unsorted item, inserting it in sorted
     order in front of items, and repeating until all items are in order.
-    TODO: Running time: ??? Why and under what conditions?
-    TODO: Memory usage: ??? Why and under what conditions?"""
-    # TODO: Repeat until all items are in sorted order
-    # TODO: Take first unsorted item
-    # TODO: Insert it in sorted order in front of items
+    Running time:
+        Best case: O(n) - Array is already sorted. Each element only needs one comparison (with the element before it), no shifting needed.
+        Worst case: O(n²) - Array is reverse sorted. Each element must be compared with and shifted past all elements in the sorted section
+        Average case: O(n²) - Random array. On average, each element needs to be compared with about half the sorted section.
+    Memory usage:
+        O(1) - Constant space
+        Only uses a fixed amount of extra variables (current_value, insert_position, loop counters)
+        No additional arrays or data structures created
+        Memory usage doesn't grow with input size       
+    """
+    # For each element in the unsorted section:
+    #   Remember this element's value
+    #   Compare backwards through sorted section
+    #   Shift elements as needed
+    #   Insert the element to the right spot
+    
+    # Start with index 1 (index 0 is already "sorted")
+    for index in range(1, len(items)):
+        # Save the current element we're trying to insert
+        current_value = items[index]
+        
+        # This will track where to insert current_value
+        insert_position = index
+        
+        # Compare backwards through the sorted section
+        for j in range(index - 1, -1, -1):
+            # If the element is bigger than current_value
+            if items[j] > current_value:
+                # Shift to the right
+                items[j + 1] = items[j]
+                #Update where current_value will go
+                insert_position = j
+            else:
+                # Found the right spot, stop searching
+                break
+        
+        # Insert current_value in its correct position
+        items[insert_position] = current_value
+            
 
-items = [1, 4, 5, 3, 2]
-print(f'{is_sorted(items)}')
+
+
