@@ -3,9 +3,20 @@
 
 def is_sorted(items):
     """Return a boolean indicating whether given items are in sorted order.
-    TODO: Running time: ??? Why and under what conditions?
-    TODO: Memory usage: ??? Why and under what conditions?"""
-    # TODO: Check that all adjacent items are in order, return early if so
+    Running time:
+        Best case: O(1), constant time, when list is unsorted and we find the problem right away
+        Worst case: O(n), linear time, when the list is actually sorted or problem at the very end
+        Average case: O(n), linear time
+    Memory usage:
+        O(1) - constant space
+        We only use single variable (index) regardless of input size
+        No new arrays or data structures are created
+    """
+    for index in range(len(items) - 1):
+        print(f'Comparing {items[index]} and {items[index + 1]}')
+        if items[index] >= items[index + 1]:
+            return False
+    return True
 
 
 def bubble_sort(items):
@@ -40,8 +51,13 @@ def bubble_sort(items):
 def selection_sort(items):
     """Sort given items by finding minimum item, swapping it with first
     unsorted item, and repeating until all items are in sorted order.
-    TODO: Running time: ??? Why and under what conditions?
-    TODO: Memory usage: ??? Why and under what conditions?"""
+    Running time:
+        Best case: O(n²) - Even if array is already sorted, comparison is still needed
+        Worst case: O(n²) - When array reversed
+        Average case: O(n²) - Random order
+    Memory usage:
+        O(1) = constant space, the amount of extra memory doesn't depend on # of elements
+        """
     # Example array: [9, 4, 5, 7, 1]
     # Repeat the process, each time starting one position further to the right
     # pass = len(items) - 1, since we have 5 elements, we need to do 4 pass
@@ -67,3 +83,6 @@ def insertion_sort(items):
     # TODO: Repeat until all items are in sorted order
     # TODO: Take first unsorted item
     # TODO: Insert it in sorted order in front of items
+
+items = [1, 4, 5, 3, 2]
+print(f'{is_sorted(items)}')
