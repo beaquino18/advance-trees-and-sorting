@@ -4,11 +4,38 @@
 def merge(items1, items2):
     """Merge given lists of items, each assumed to already be in sorted order,
     and return a new list containing all items in sorted order.
-    TODO: Running time: ??? Why and under what conditions?
-    TODO: Memory usage: ??? Why and under what conditions?"""
-    # TODO: Repeat until one list is empty
-    # TODO: Find minimum item in both lists and append it to new list
-    # TODO: Append remaining items in non-empty list to new list
+    Running time: O(n + m) where n = len(items1) and m = len(items2)
+        - We iterate through each list exactly once
+        - Each comparison and append is O(1)
+        - Best, worst, and average are all the same
+    Memory time: O(n + m)
+        - We create a new list containing all items from both input lists
+        - The sorted_list has n + m total items
+    """
+    # Create empty result list
+    sorted_list = []
+    
+    # # of item in each list
+    len1 = len(items1)
+    len2 = len(items2)
+    
+    # Position trackers
+    current_position_items1 = 0
+    current_position_items2 = 0
+    
+    # While loop
+    while current_position_items1 < len1 and current_position_items2 < len2:
+        # Compare the items at current positions & add the smaller one to sorted_list
+        if items1[current_position_items1] < items2[current_position_items2]:
+            sorted_list.append(items1[current_position_items1])
+            current_position_items1 += 1
+        else:
+            sorted_list.append(items2[current_position_items2])
+            current_position_items2 += 1
+            
+    sorted_list.extend(items1[current_position_items1:])
+    sorted_list.extend(items2[current_position_items2:])
+    return sorted_list
 
     
 def split_sort_merge(items):
