@@ -1,5 +1,7 @@
 #!python
 
+from sorting_iterative import insertion_sort;
+
 
 def merge(items1, items2):
     """Merge given lists of items, each assumed to already be in sorted order,
@@ -39,14 +41,31 @@ def merge(items1, items2):
 
     
 def split_sort_merge(items):
-     """Sort given items by splitting list into two approximately equal halves,
-     sorting each with an iterative sorting algorithm, and merging results into
-     a list in sorted order.
-     TODO: Running time: ??? Why and under what conditions?
-     TODO: Memory usage: ??? Why and under what conditions?"""
-     # TODO: Split items list into approximately equal halves
-     # TODO: Sort each half using any other sorting algorithm
-     # TODO: Merge sorted halves into one list in sorted order
+    """Sort given items by splitting list into two approximately equal halves,
+    sorting each with an iterative sorting algorithm, and merging results into
+    a list in sorted order.
+    Running time:
+        Best case: O(n), linear time when both halves are already sorted
+        Worst Case: O(n^2), quadratic time when insertion sort dominates
+        Average Case: O(n^2), quadratic time when insertion sort dominates
+    Memory usage: O(n)
+        - Creating copies of halves: O(n)
+        - Merge creates new list: O(n)
+        - Insertion sort is in-place: O(1)
+    """
+    
+    # Find the middle of the items array and split
+    middle = len(items) // 2
+    first_half = items[:middle]
+    second_half = items[middle:]
+    
+    # Sort each half using insertion_sort
+    insertion_sort(first_half)
+    insertion_sort(second_half)
+    
+    # Merge the two halves
+    return merge(first_half, second_half)
+    
 
     
 def merge_sort(items):
