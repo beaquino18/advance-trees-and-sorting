@@ -106,13 +106,37 @@ def partition(items, low, high):
     `[low...high]` by choosing a pivot (TODO: document your method here) from
     that range, moving pivot into index `p`, items less than pivot into range
     `[low...p-1]`, and items greater than pivot into range `[p+1...high]`.
-    TODO: Running time: ??? Why and under what conditions?
-    TODO: Memory usage: ??? Why and under what conditions?"""
-    # TODO: Choose a pivot any way and document your method in docstring above
-    # TODO: Loop through all items in range [low...high]
-    # TODO: Move items less than pivot into front of range [low...p-1]
-    # TODO: Move items greater than pivot into back of range [p+1...high]
-    # TODO: Move pivot item into final position [p] and return index p
+    Chosen Pivot: Last Element in items
+    Running time: O(n) where n = high - low + 1 (the size of the range)
+        - We iterate through each item in the range exactly once
+        - Each comparison and swap is O(1)
+        - Best, worst, and average are all O(n)
+    Memory usage: O(1)
+        - We only use a constant amount of extra space (pivot, boundary, index)
+        - All operations are done in-place on the original list
+        - No additional data structures are created
+    """
+    # Choose a pivot any way and document your method in docstring above
+    pivot = items[high]
+    
+    # Initialize boundary (tracks end of "small items" section)
+    boundary = low - 1
+
+    # Loop through all items in range [low...high]
+    for index in range(low, high):
+        # If current item < pivot:
+        #   - Move boundary forward
+        #   - Swap current item with item at boundary
+        if items[index] < pivot:
+            boundary += 1
+            items[index], items[boundary] = items[boundary], items[index]
+        
+    # After loop, place pivot in correct position
+    #   - Swap pivot with item at boundary+1
+    items[boundary + 1], items[high] = items[high], items[boundary + 1]
+    
+    # Return the pivot's final index
+    return boundary + 1
 
 
 def quick_sort(items, low=None, high=None):
