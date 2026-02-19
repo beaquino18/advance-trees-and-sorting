@@ -1,5 +1,6 @@
 #!python
 
+from sorting_iterative import insertion_sort
 
 def counting_sort(numbers):
     """Sort given numbers (integers) by counting occurrences of each number,
@@ -41,11 +42,33 @@ def counting_sort(numbers):
 def bucket_sort(numbers, num_buckets=10):
     """Sort given numbers by distributing into buckets representing subranges,
     then sorting each bucket and concatenating all buckets in sorted order.
-    TODO: Running time: ??? Why and under what conditions?
-    TODO: Memory usage: ??? Why and under what conditions?"""
-    # TODO: Find range of given numbers (minimum and maximum values)
-    # TODO: Create list of buckets to store numbers in subranges of input range
-    # TODO: Loop over given numbers and place each item in appropriate bucket
-    # TODO: Sort each bucket using any sorting algorithm (recursive or another)
-    # TODO: Loop over buckets and append each bucket's numbers into output list
-    # FIXME: Improve this to mutate input instead of creating new output list
+    Running time: ??? Why and under what conditions?
+        - Best case: O(n) — numbers evenly distributed across buckets
+        - Worst case: O(n²) — all numbers end up in the same bucket
+    Memory usage:
+        - Always requires extra space for bucket_array and sorted_array
+    """
+    # Find range of given numbers (minimum and maximum values)
+    min_value = min(numbers)
+    max_value = max(numbers)
+    range_max_min = max_value - min_value
+    
+    # Create list of buckets to store numbers in subranges of input range
+    bucket_array = [[] for _ in range(num_buckets)]
+    
+    # Loop over given numbers and place each item in appropriate bucket
+    for number in numbers:
+        distance = number - min_value
+        bucket = int(min((distance / range_max_min) * num_buckets, num_buckets - 1))
+        bucket_array[bucket].append(number)
+        
+        
+    # Sort each bucket using any sorting algorithm (recursive or another)
+    sorted_array = []
+    for bucket in bucket_array:
+        insertion_sort(bucket)
+        # Loop over buckets and append each bucket's numbers into output list
+        sorted_array.extend(bucket)
+        
+    numbers[:] = sorted_array
+    
