@@ -1,6 +1,6 @@
 #!python3
 
-from prefixtreenode import PrefixTreeNode
+from prefixtree_node import PrefixTreeNode
 import unittest
 
 
